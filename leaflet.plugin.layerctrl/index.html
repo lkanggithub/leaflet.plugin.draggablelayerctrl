@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Leaflet Draggable Layer Control</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"/>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+		<link rel="stylesheet" href="src/lyrctrl/leaflet-lyrctrl.css"/>
+    </head>
+    <body>
+		<div id="map" style="width: 100%; height: 100%"></div>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+		<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>	
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+		<script type="text/javascript" src="src/lyrctrl/lyrCtrl.js"></script>
+		<script type="text/javascript" src="src/lyrctrl/lyrConf.js"></script>
+		<script type="text/javascript" src="src/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.ajax('src/main.js', {dataType: 'script'});
+            });
+			$(document).ready(function(){
+			    $('[data-toggle="tooltip"]').tooltip();
+			});
+        </script>
+    </body>
+</html>
