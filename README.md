@@ -1,10 +1,10 @@
 # Leaflet draggable layer control plug-in
 
 ## Features:
-* Layers management by group
-* Layer order setting through drag-n-drop 
-* Layer visibility toggle
-* Layer transparency tuning
+* Manage layers by group
+* Set layer order through drag-n-drop 
+* Toggle layer visibility
+* Tune layer transparency
 * Supported layers: L.tileLayer.wms, L.tileLayer (more layer types to be supported...)
 
 ## Usage:
@@ -29,7 +29,7 @@
     layerCtrl._initLyrCtrlPanel();
   
 ## Layer configuration Synopsis:
-*	Config snippet:
+Config snippet:
     'GROUP_ID':{
         title:'GROUP_TITLE',
         lyrs:{ 
