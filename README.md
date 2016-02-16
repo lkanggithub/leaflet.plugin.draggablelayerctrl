@@ -1,6 +1,6 @@
 # Leaflet draggable layer control plug-in
 
-## Demo:
+### Demo:
 http://lkanggithub.github.io/leaflet.plugin.draggablelayerctrl/leaflet.plugin.layerctrl/index.html
 
 ## Features:
