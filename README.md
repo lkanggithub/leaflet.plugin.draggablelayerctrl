@@ -40,7 +40,7 @@
       		'LAYER_ID':{
       		    title: 'LAYER_TITLE',
       		    endpoint:'WMS_ENDPOINT',
-      		    params:{WMS_PARAM}
+      		    params:{'WMS_PARAM'}
       		},
       		...
         }
