@@ -8,6 +8,7 @@
 * Supported layers: L.tileLayer.wms, L.tileLayer (more layer types to be supported...)
 
 ## Usage:
+```javascript
     /*
     * Initialize leaflet map
     */
@@ -27,8 +28,9 @@
       lyrConf:lyrConf
     }).addTo(map);
     layerCtrl._initLyrCtrlPanel();
-  
+```
 ## Layer configuration Synopsis:
+```javascript
     /*
     * Config snippet (lyrConf.js)
     */
@@ -43,7 +45,7 @@
       		...
         }
       },
-
+```
 *	`GROUP_ID`: Layer group id
 *	`GROUP_TITLE`: Title of layer group (for display)
 *	`LAYER_ID`: ILayer id
