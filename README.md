@@ -29,12 +29,9 @@
     layerCtrl._initLyrCtrlPanel();
   
 ## Layer configuration Synopsis:
-    var lyrConf = lyrConfig;
-    var layerCtrl = L.control.layerCtrl({
-      lyrConf:lyrConf
-    }).addTo(map);
-    layerCtrl._initLyrCtrlPanel();
-    
+    /*
+    * Config snippet (lyrConf.js)
+    */
       'GROUP_ID':{
         title:'GROUP_TITLE',
         lyrs:{ 
@@ -45,7 +42,7 @@
       		},
       		...
         }
-    },
+      },
 
 *	`GROUP_ID`: Layer group id
 *	`GROUP_TITLE`: Title of layer group (for display)
