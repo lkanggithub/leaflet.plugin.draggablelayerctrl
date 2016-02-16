@@ -1,5 +1,8 @@
 # Leaflet draggable layer control plug-in
 
+## Demo:
+http://lkanggithub.github.io/leaflet.plugin.draggablelayerctrl/leaflet.plugin.layerctrl/index.html
+
 ## Features:
 * Manage layers by group
 * Set layer order through drag-n-drop 
