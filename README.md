@@ -29,8 +29,13 @@
     layerCtrl._initLyrCtrlPanel();
   
 ## Layer configuration Synopsis:
-Config snippet:
-    'GROUP_ID':{
+    var lyrConf = lyrConfig;
+    var layerCtrl = L.control.layerCtrl({
+      lyrConf:lyrConf
+    }).addTo(map);
+    layerCtrl._initLyrCtrlPanel();
+    
+      'GROUP_ID':{
         title:'GROUP_TITLE',
         lyrs:{ 
       		'LAYER_ID':{
