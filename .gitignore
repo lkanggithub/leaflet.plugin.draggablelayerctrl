@@ -1,5 +1,5 @@
 *.project
 .settings
-**/css/*.scss
-**/css/*.sass
-**/css/*.map
+*.scss
+*.sass
+*.map
