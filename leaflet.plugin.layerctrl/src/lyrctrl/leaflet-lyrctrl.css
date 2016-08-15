@@ -1,57 +1,153 @@
-/*
-Error: File to import not found or unreadable: ../css/config.
-       Load path: C:/Users/ljkan/GitHub/leaflet.plugin.draggablelayerctrl
-        on line 3 of C:/Users/ljkan/GitHub/leaflet.plugin.draggablelayerctrl/leaflet.plugin.layerctrl/src/lyrctrl/leaflet-lyrctrl.scss
+@CHARSET "ISO-8859-1";
+.leaflet-layer-control {
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+  background: none repeat scroll 0% 0% #FFF;
+  border-radius: 5px; }
 
-1: @CHARSET "ISO-8859-1";
-2: 
-3: @import '../css/config';
-4: @import '../css/utility';
-5: 
-6: .leaflet-layer-control {
-7:     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
-8:     background: none repeat scroll 0% 0% #FFF; 
+a.leaflet-layer-control-toggle {
+  background-image: url(layers.png);
+  width: 36px;
+  height: 36px;
+  margin: auto;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  line-height: 36px !important;
+  font-weight: bolder;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  font-size: 1em;
+  cursor: pointer; }
 
-Backtrace:
-C:/Users/ljkan/GitHub/leaflet.plugin.draggablelayerctrl/leaflet.plugin.layerctrl/src/lyrctrl/leaflet-lyrctrl.scss:3
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/import_node.rb:67:in `rescue in import'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/import_node.rb:45:in `import'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/import_node.rb:28:in `imported_file'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/import_node.rb:37:in `css_import?'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:313:in `visit_import'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `map'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:169:in `block in visit_children'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:168:in `visit_children'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:188:in `visit_root'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:159:in `visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:8:in `visit'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/root_node.rb:36:in `css_tree'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/engine.rb:381:in `_render_with_sourcemap'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/engine.rb:298:in `render_with_sourcemap'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:209:in `each'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:473:in `on_file_changed'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:331:in `block in watch'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/vendor/listen/lib/listen/listener.rb:252:in `on_change'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
-C:/Programs/Ruby/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: File to import not found or unreadable: ../css/config.\A        Load path: C:/Users/ljkan/GitHub/leaflet.plugin.draggablelayerctrl\A         on line 3 of C:/Users/ljkan/GitHub/leaflet.plugin.draggablelayerctrl/leaflet.plugin.layerctrl/src/lyrctrl/leaflet-lyrctrl.scss\A \A 1: @CHARSET \"ISO-8859-1\";\A 2: \A 3: @import '../css/config';\A 4: @import '../css/utility';\A 5: \A 6: .leaflet-layer-control {\A 7:     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);\A 8:     background: none repeat scroll 0% 0% #FFF; "; }
+.leaflet-layer-control .panel {
+  display: none; }
+
+.leaflet-layer-control.leaflet-layer-control-expanded .panel {
+  display: block; }
+
+.leaflet-layer-control.leaflet-layer-control-expanded a.leaflet-layer-control-toggle {
+  display: block; }
+
+.subPanel_left {
+  float: left;
+  width: 10%;
+  height: 10vh;
+  background: #fff;
+  cursor: pointer;
+  position: relative; }
+
+.subPanel_left div.glyphicon {
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  left: 20%;
+  right: 20%; }
+
+.subPanel_right1 {
+  float: right;
+  width: 90%;
+  height: 4vh;
+  background: #fff;
+  position: relative; }
+
+.subPanel_right1 > div.singleCheck {
+  display: inline;
+  margin-left: 2.5%;
+  margin-right: 2.5%; }
+
+.modal-content .singleCheck {
+  display: inline;
+  margin-left: 2.5%;
+  margin-right: 2.5%; }
+
+.subPanel_right2 {
+  float: right;
+  width: 90%;
+  height: 3vh;
+  background: #fff;
+  position: relative; }
+
+.subPanel_right2 div.ui-slider {
+  position: absolute;
+  left: 5%;
+  right: 5%; }
+
+.subPanel_right3 {
+  float: right;
+  width: 90%;
+  height: 3vh;
+  background: #fff; }
+
+.subPanel_right3 .legend {
+  top: 20%;
+  bottom: 20%;
+  left: 5%;
+  right: 5%;
+  position: relative; }
+
+.subPanel_right3 .legend span {
+  display: block;
+  float: left;
+  height: 60%;
+  text-align: center;
+  font-size: 9px;
+  color: #808080; }
+
+.subPanel_right3 .legend span:hover {
+  display: block;
+  float: left;
+  height: 60%;
+  text-align: center;
+  font-size: 9px;
+  color: #808080;
+  box-shadow: 0 0 5px #51cbee;
+  border: 1px solid #51cbee; }
+
+.panel .dragbox {
+  margin: 0px;
+  background: #fff;
+  border: 1px solid #ddd;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }
+
+.panel .dragbox .dragbox-head {
+  font-size: 15px;
+  background: #f0f0f0;
+  color: #000;
+  border-bottom: 1px solid #eee;
+  font-family: Verdana;
+  cursor: move; }
+
+.panel .dragbox .dragbox-content {
+  background: #fff; }
+
+.panel .placeholder {
+  background: #f0f0f0;
+  border: 1px dashed #ddd; }
+
+.lyrSelDpb {
+  position: absolute;
+  width: 90%;
+  top: 10%;
+  left: 5%;
+  right: 5%; }
+
+@media only screen and (max-width: 768px) {
+  .panel {
+    width: 95vw;
+    height: 70vw;
+    position: relative;
+    background: #fff;
+    float: left;
+    overflow-x: hidden;
+    overflow-y: scroll; } }
+@media only screen and (min-width: 768px) {
+  .panel {
+    width: 40vw;
+    height: auto;
+    position: relative;
+    background: #fff;
+    float: left; } }
+
+/*# sourceMappingURL=leaflet-lyrctrl.css.map */
