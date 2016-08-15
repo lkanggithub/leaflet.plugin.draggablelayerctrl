@@ -1,7 +1,8 @@
 L.Control.layerCtrl = L.Control.extend({
     options: {
         id: "layerCtrl",
-        title: 'Layer Control',
+        title: 'Auxiliary maps',
+        position: 'topright',
         collapsed: true,
         lyrConf:null
     },
@@ -21,25 +22,11 @@ L.Control.layerCtrl = L.Control.extend({
     
     _initCtrl: function () {
         var className = 'leaflet-layer-control';
-        var container = this._container = L.DomUtil.create('div', className);
+        this._container = L.DomUtil.create('div', className);
         L.DomEvent.disableClickPropagation(this._container);
-        var ctrlLink = this._ctrlLink = L.DomUtil.create('a', className + '-toggle', this._container);
+        this._ctrlLink = L.DomUtil.create('a', className + '-toggle', this._container);
         this._ctrlLink.setAttribute("title", this.options.title);
-        if (this._collapsed) {
-            if (!L.Browser.android) {
-            	L.DomEvent.on(this._ctrlLink, 'click', this._toggleCtrl, this);
-				
-            }
-            if (L.Browser.touch) {
-                L.DomEvent
-                    .on(this._ctrlLink, 'click', L.DomEvent.stop)
-                    .on(this._ctrlLink, 'click', this._expand, this);
-            } else {
-                L.DomEvent.on(this._ctrlLink, 'focus', this._expand, this);
-            }
-        } else {
-            this._expand();
-        }
+        L.DomEvent.on(this._ctrlLink, 'click', this._toggleCtrl, this);
         this._renderLyrCtrlPanel(this._lyrConf);
     },
     
@@ -85,20 +72,42 @@ L.Control.layerCtrl = L.Control.extend({
     		var lyrGroupContentCtrl = L.DomUtil.create('div', 'dragbox-content', lyrGroupCtrl);
     		var subPanelLeftCtrl = L.DomUtil.create('div', 'subPanel_left', lyrGroupContentCtrl);
     		var subPanelRight1Ctrl = L.DomUtil.create('div', 'subPanel_right1', lyrGroupContentCtrl);
-    		var subPanelRight2Ctrl = L.DomUtil.create('div', 'subPanel_right2', lyrGroupContentCtrl);
-    		var subPanelRight3Ctrl = L.DomUtil.create('div', 'subPanel_right3', lyrGroupContentCtrl);
     		subPanelLeftCtrl.innerHTML='<div id="'+lyrGroupConfId+'_visCtrl'+'" style="cursor:pointer" class="glyphicon glyphicon-eye-close"></div>';
-    		subPanelRight2Ctrl.innerHTML='<div id="'+lyrGroupConfId+'_trpCtrl"></div>';
     		var lyrConfs = lyrGroupConf.lyrs;
-        	var tmpInnerHTML = '';
-    		$.each(lyrConfs,function(lyrId,lyrConf){
-        		if(lyrId.length>0){
-        			var lyrTitle = lyrConf.title || '';
-        			tmpInnerHTML=tmpInnerHTML+
-        			'<div class="singleCheck" lyrId="'+lyrId+'"><label><input type="checkbox"/>'+lyrTitle+'</label></div>';
-        		}
-        	});
+        	var tmpInnerHTML='';
+    		if(lyrGroupConfId=='Corr'){//guly
+            	tmpInnerHTML='<div class="lyrGroupLink lyrGroupLinkClose">Layer</div><div class="groupCheck"><label><input type="checkbox" disabled/></label></div>';
+    		}else{
+            	$.each(lyrConfs,function(lyrId,lyrConf){
+            		if(lyrId.length>0){
+            			var lyrTitle = lyrConf.title || '';
+            			tmpInnerHTML=tmpInnerHTML+
+            			'<div class="singleCheck" lyrId="'+lyrId+'"><label><input type="checkbox"/>'+lyrTitle+'</label></div>';
+            		}
+            	});
+    		}
     		subPanelRight1Ctrl.innerHTML=tmpInnerHTML;
+    		var subPanelRight2Ctrl = L.DomUtil.create('div', 'subPanel_right2', lyrGroupContentCtrl);    		
+    		subPanelRight2Ctrl.innerHTML='<div id="'+lyrGroupConfId+'_trpCtrl"></div>';
+    		var subPanelRight3Ctrl = L.DomUtil.create('div', 'subPanel_right3', lyrGroupContentCtrl);
+    		if(lyrGroupConf.legend!=null){
+    			var lyrGroupLegendConf = lyrGroupConf.legend; 
+    			tmpInnerHTML='<div id="'+lyrGroupConfId+'_legendCtrl" class="legend">';
+    			$.each(lyrGroupLegendConf,function(legendId,legend){
+    				if(legend.length==2){
+        				tmpInnerHTML=tmpInnerHTML+"<span style='background:"+legend[0]+"' title='"+legend[1]+"'></span>";    					
+    				}
+    			});
+        		tmpInnerHTML=tmpInnerHTML+'</div>';
+        		subPanelRight3Ctrl.innerHTML=tmpInnerHTML;
+    		}else if(lyrGroupConf.legend_g!=null){
+    			var lyrGroupLegendConf = lyrGroupConf.legend_g;
+    			tmpInnerHTML='<div id="'+lyrGroupConfId+'_legendCtrl" class="legend">';
+    			'background: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); '
+    			tmpInnerHTML=tmpInnerHTML+"<span style='background:linear-gradient(to right,"+lyrGroupLegendConf.color.toString()+"' title='"+lyrGroupLegendConf.label[0]+"'></span>";//"'></span>";  
+        		tmpInnerHTML=tmpInnerHTML+'</div>';
+        		subPanelRight3Ctrl.innerHTML=tmpInnerHTML;
+    		}
     	});
     },
     
@@ -109,6 +118,7 @@ L.Control.layerCtrl = L.Control.extend({
     	var lyrTransparencyHandlerFunc = this._lyrTransparencyHandler;
     	var lyrHandlerFunc = this._lyrHandler;
     	var setLyrStatusUIFunc = this._setLyrStatusUI;
+    	var initLyrSelDialogFunc = this._initLyrSelDialog;
     	$('.panel').sortable({
     		connectWith: '.panel',
     		handle: '.dragbox-head',
@@ -132,16 +142,49 @@ L.Control.layerCtrl = L.Control.extend({
     			$(this).siblings('.dragbox-content').toggle();
     		})
     		.end()
-    	});    	
+    	});
     	
     	$.each(this._lyrConf,function(lyrGroupConfId,lyrGroupConf){
+    		var lyrGroupLinkJq=$('#'+lyrGroupConfId).find('.lyrGroupLink');
+    		if(lyrGroupLinkJq.length>=1){
+    			var lyrSelDlgJq=$("#lyrSelDlg");
+    			lyrGroupLinkJq.on('click',function(){
+    				if(lyrGroupLinkJq.hasClass('lyrGroupLinkClose')){
+    					_this._initLyrSelDialog(lyrSelDlgJq,_this,lyrGroupConfId,lyrGroupConf);//ugly
+    					lyrGroupLinkJq.removeClass('lyrGroupLinkClose');
+    					lyrGroupLinkJq.addClass('lyrGroupLinkOpen');
+    				}else{
+    					lyrSelDlgJq.dialog('close');
+    					lyrGroupLinkJq.removeClass('lyrGroupLinkOpen');
+    					lyrGroupLinkJq.addClass('lyrGroupLinkClose');
+    				}
+    			});
+    		}
+    		if($('#'+lyrGroupConfId).find('.groupCheck').length>=1){
+    			$('#'+lyrGroupConfId).find('.groupCheck').on('click',function(){
+    				if(_this._lyrGroupStatus[lyrGroupConfId].layer!=null){
+    					var lyrId=_this._lyrGroupStatus[lyrGroupConfId].id;
+    					$('#'+lyrGroupConfId).find('.groupCheck').find('input').prop('checked',false);
+    					$('#'+lyrGroupConfId).find('.groupCheck').find('input').prop('disabled',true);
+    					_this._lyrHandler(false,_this._map,lyrGroupConfId,lyrId,lyrGroupConf,_this._lyrGroupStatus);
+                    	_this._setLyrStatusUI(lyrGroupConfId,_this._lyrGroupStatus,$('#'+lyrGroupConfId+'_visCtrl'),$('#'+lyrGroupConfId+'_trpCtrl'));
+    				
+    				}
+    			});
+    		};
     		if($('#'+lyrGroupConfId).find('.singleCheck').length>=1){
     			$.each($('#'+lyrGroupConfId).find('.singleCheck'),function(idx,lyrSelCtrl){
                     lyrSelCtrl.addEventListener('click', function(){
                     	$(this).siblings().find('input').prop('checked', false);
                     	var lyrId = $(this).attr('lyrId');
-                    	lyrHandlerFunc.call(this,_this._map,lyrGroupConfId,lyrId,lyrGroupConf,_this._lyrGroupStatus);
-                    	setLyrStatusUIFunc.call(this,lyrGroupConfId,_this._lyrGroupStatus,$('#'+lyrGroupConfId+'_visCtrl'),$('#'+lyrGroupConfId+'_trpCtrl'));
+                    	var checkToLoad=false;
+                    	if($(this).find('input').prop('checked')){
+                    		checkToLoad=true;
+                    	}
+                    	_this._lyrHandler(checkToLoad,_this._map,lyrGroupConfId,lyrId,lyrGroupConf,_this._lyrGroupStatus)
+                    	_this._setLyrStatusUI(lyrGroupConfId,_this._lyrGroupStatus,$('#'+lyrGroupConfId+'_visCtrl'),$('#'+lyrGroupConfId+'_trpCtrl'));
+                    	//lyrHandlerFunc.call(this,_this._map,lyrGroupConfId,lyrId,lyrGroupConf,_this._lyrGroupStatus);
+                    	//setLyrStatusUIFunc.call(this,lyrGroupConfId,_this._lyrGroupStatus,$('#'+lyrGroupConfId+'_visCtrl'),$('#'+lyrGroupConfId+'_trpCtrl'));
                     });
     			});
     		}
@@ -165,6 +208,14 @@ L.Control.layerCtrl = L.Control.extend({
     				setLyrStatusUIFunc.call(this,lyrGroupConfId,_this._lyrGroupStatus,$('#'+lyrGroupConfId+'_visCtrl'),$('#'+lyrGroupConfId+'_trpCtrl'));
     			});
     		}
+    		if($('#'+lyrGroupConfId+'_legendCtrl').length==1){
+    			if(lyrGroupConf.legend!=null){
+        			var numLegend = Object.keys(lyrGroupConf.legend).length;
+        			$('#'+lyrGroupConfId+'_legendCtrl').find('span').css('width',(90/numLegend).toString()+'%');//90 ugly!
+    			}else if(lyrGroupConf.legend_g!=null){
+        			$('#'+lyrGroupConfId+'_legendCtrl').find('span').css('width','90%');//90 ugly    				
+    			}
+    		}
     	});
     },
     
@@ -179,7 +230,7 @@ L.Control.layerCtrl = L.Control.extend({
     	});
     },
     
-    _lyrHandler: function(map,groupId,lyrId,lyrGroupConf,lyrGroupStatus){
+    _lyrHandler: function(checkToLoad,map,groupId,lyrId,lyrGroupConf,lyrGroupStatus){
     	var _lyrGroupStatus = lyrGroupStatus[groupId];
     	if(_lyrGroupStatus!=null){
     		if(_lyrGroupStatus.layer!=null){
@@ -190,7 +241,8 @@ L.Control.layerCtrl = L.Control.extend({
         		_lyrGroupStatus.layer=null;
         		_lyrGroupStatus.id=null;
     		}
-    		if($(this).find('input').prop('checked')){
+    		if(checkToLoad){
+    		//if($(this).find('input').prop('checked')){
         		var lyrConf = lyrGroupConf.lyrs[lyrId];
         		if(lyrConf!=null){
                 	var lyrAccessParams = lyrConf.params || {};
@@ -281,6 +333,47 @@ L.Control.layerCtrl = L.Control.extend({
     		lyrTransparencyCtrl.slider('value',lyrGroupStatus[groupId].transp);
     		lyrTransparencyCtrl.slider('enable');    		
     	}
+    },
+    
+    _initLyrSelDialog: function(dlgContainerJq,lyrCtrl,lyrGroupConfId,lyrGroupConf){
+    	//close dlgContainerJq if it is alive
+    	if(dlgContainerJq.find('select').length!=0){
+    		dlgContainerJq.dialog('close');
+    	}
+    	var iniOptions = {
+    		autoOpen:false,
+    		resizable:false,
+    		draggable:true,
+    		title:lyrGroupConfId,
+    	};
+		var dlgContainer = dlgContainerJq.dialog(iniOptions);
+		//read conf+render
+		var lyrConfs = lyrGroupConf.lyrs;
+    	var tmpInnerHTML='<select size="4" class="lyrSelDpb">';
+    	$.each(lyrConfs,function(lyrId,lyrConf){
+    		if(lyrId.length>0){
+    			var lyrTitle = lyrConf.title || '';
+    			tmpInnerHTML=tmpInnerHTML+
+    			'<option value="'+lyrId+'">'+lyrId+'</option>';
+    		};
+    	});
+    	dlgContainer[0].innerHTML=tmpInnerHTML+'</select>';
+    	var lyrSelCtrl=dlgContainer.find('select');
+    	lyrSelCtrl.on('change',function(){
+    		var lyrId = this.value;
+    		lyrCtrl._lyrHandler(true,lyrCtrl._map,lyrGroupConfId,lyrId,lyrGroupConf,lyrCtrl._lyrGroupStatus);
+    		lyrCtrl._setLyrStatusUI(lyrGroupConfId,lyrCtrl._lyrGroupStatus,$('#'+lyrGroupConfId+'_visCtrl'),$('#'+lyrGroupConfId+'_trpCtrl'));
+    	});
+    	dlgContainerJq.on('dialogclose',function(){
+    		var loadedLyr=lyrCtrl._lyrGroupStatus[lyrGroupConfId].layer;
+    		if(loadedLyr!=null){
+        		$('#'+lyrGroupConfId).find('.groupCheck').find('input').prop('disabled',false);
+    			$('#'+lyrGroupConfId).find('.groupCheck').find('input').prop('checked',true);
+    		}
+    		$('#'+lyrGroupConfId).find('.lyrGroupLink').removeClass('lyrGroupLinkOpen').addClass('lyrGroupLinkClose');
+    	});
+    	dlgContainer.dialog('open');
+		
     }
     
 });

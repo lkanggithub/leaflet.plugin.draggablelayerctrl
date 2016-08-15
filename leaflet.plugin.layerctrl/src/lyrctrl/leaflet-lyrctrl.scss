@@ -1,0 +1,170 @@
+@CHARSET "ISO-8859-1";
+
+@import '../css/config';
+@import '../css/utility';
+
+.leaflet-layer-control {
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+    background: none repeat scroll 0% 0% #FFF; 
+    border-radius: 5px;   
+}
+
+a.leaflet-layer-control-toggle {
+	background-image: url(layers.png);
+	width: 36px;
+	height: 36px;
+	margin: auto;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display:inline-block;
+    line-height: 36px !important;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    color:#000;
+    font-size:1em;
+    cursor:pointer;
+}
+
+.leaflet-layer-control .panel{
+    display:none;
+}
+.leaflet-layer-control.leaflet-layer-control-expanded .panel{
+    display:block;
+}
+.leaflet-layer-control.leaflet-layer-control-expanded a.leaflet-layer-control-toggle {
+    display:block;
+}
+
+.subPanel_left{
+	float:left;
+	width:10%;
+	height:10vh;
+	background:#fff;
+	cursor:pointer;
+	position:relative;
+}
+.subPanel_left div.glyphicon{
+	position:absolute;
+	top:20%;
+	bottom:20%;
+	left:20%;
+	right:20%;
+}
+.subPanel_right1{
+	float:right;
+	width:90%;
+	height:4vh;
+	background:#fff;
+	position:relative;
+}
+.subPanel_right1 > div.singleCheck{
+	display:inline;
+	margin-left:2.5%;
+	margin-right:2.5%;
+}
+.modal-content .singleCheck{
+	display:inline;
+	margin-left:2.5%;
+	margin-right:2.5%;
+}
+.subPanel_right2{
+	float:right;
+	width:90%;
+	height:3vh;
+	background:#fff;
+	position:relative
+}
+.subPanel_right2 div.ui-slider{
+	position:absolute;
+	left:5%;
+	right:5%;
+}
+.subPanel_right3{
+	float:right;
+	width:90%;
+	height:3vh;
+	background:#fff;
+}
+
+.subPanel_right3 .legend{
+	top:20%;
+	bottom:20%;
+	left:5%;
+	right:5%;
+	position:relative;
+}
+.subPanel_right3 .legend span {
+  display:block;
+  float:left;
+  height:60%;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
+}
+.subPanel_right3 .legend span:hover {
+  display:block;
+  float:left;
+  height:60%;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.panel .dragbox{
+	margin:0px;
+	background:#fff;
+	border:1px solid #ddd;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+.panel .dragbox .dragbox-head{
+	font-size:15px;
+	background:#f0f0f0;
+	color:#000;
+	border-bottom:1px solid #eee;
+	font-family:Verdana;
+	cursor:move;
+}
+
+.panel .dragbox .dragbox-content{
+	background:#fff;
+}
+.panel  .placeholder{
+	background: #f0f0f0;
+	border:1px dashed #ddd;
+}
+
+.lyrSelDpb{
+	position:absolute;
+	width:90%;
+	top:10%;
+	left:5%;
+	right:5%;
+}
+
+@media only screen and (max-width:map-get($screen-breakpoints,md)) {
+	.panel{
+		width:95vw;
+		height:70vw;
+		position:relative;
+		background:#fff;
+		float:left;
+		overflow-x:hidden;
+		overflow-y:scroll;
+	}	
+}
+
+
+@media only screen and (min-width:map-get($screen-breakpoints,md)) {
+	.panel{
+		width:40vw;
+		height:auto;
+		position:relative;
+		background:#fff;
+		float:left;
+	}	
+}
